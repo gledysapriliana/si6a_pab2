@@ -41,53 +41,57 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCsqUb03KnuX1hSkQZfjFSfiQwci_chjWs',
-    appId: '1:50462271102:web:f383ac7bb30666d7be9a2f',
-    messagingSenderId: '50462271102',
-    projectId: 'mdpgold-ace92',
-    authDomain: 'mdpgold-ace92.firebaseapp.com',
-    databaseURL: 'https://mdpgold-ace92-default-rtdb.firebaseio.com',
-    storageBucket: 'mdpgold-ace92.firebasestorage.app',
-    measurementId: 'G-X7J49PFFEH',
+    apiKey: 'AIzaSyCIE0muClGbzV4Fitsmvo1KjzzY7Gwo7ug',
+    appId: '1:606666353884:web:e7c307dda1c23aeecad819',
+    messagingSenderId: '606666353884',
+    projectId: 'mdpgold-b56ea',
+    authDomain: 'mdpgold-b56ea.firebaseapp.com',
+    databaseURL: 'https://mdpgold-b56ea-default-rtdb.firebaseio.com',
+    storageBucket: 'mdpgold-b56ea.firebasestorage.app',
+    measurementId: 'G-15N1YQ3B4J',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBiRzZ47P6OlMfqk3I_Xv3Ivyvhz_62NgU',
-    appId: '1:50462271102:android:1db424594512e958be9a2f',
-    messagingSenderId: '50462271102',
-    projectId: 'mdpgold-ace92',
-    databaseURL: 'https://mdpgold-ace92-default-rtdb.firebaseio.com',
-    storageBucket: 'mdpgold-ace92.firebasestorage.app',
+    apiKey: 'AIzaSyCFAI1bimdiJe6ESb0qwbUzP0nGl9NzzzA',
+    appId: '1:606666353884:android:1f03718656b00e61cad819',
+    messagingSenderId: '606666353884',
+    projectId: 'mdpgold-b56ea',
+    databaseURL: 'https://mdpgold-b56ea-default-rtdb.firebaseio.com',
+    storageBucket: 'mdpgold-b56ea.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDFdsveN_loXqE5OKTOevRMZQ4FCop7qas',
-    appId: '1:50462271102:ios:2bfe7dc3c5cbc8bdbe9a2f',
-    messagingSenderId: '50462271102',
-    projectId: 'mdpgold-ace92',
-    databaseURL: 'https://mdpgold-ace92-default-rtdb.firebaseio.com',
-    storageBucket: 'mdpgold-ace92.firebasestorage.app',
+    apiKey: 'AIzaSyDkjRReLDIYSLGyGc2M8pKsVR7RJUbzolU',
+    appId: '1:606666353884:ios:27f10498a724385fcad819',
+    messagingSenderId: '606666353884',
+    projectId: 'mdpgold-b56ea',
+    databaseURL: 'https://mdpgold-b56ea-default-rtdb.firebaseio.com',
+    storageBucket: 'mdpgold-b56ea.firebasestorage.app',
+    iosClientId:
+        '606666353884-0bjtmntlc7golhtk1ucec8nq70l7jhnt.apps.googleusercontent.com',
     iosBundleId: 'com.example.mdpGold',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDFdsveN_loXqE5OKTOevRMZQ4FCop7qas',
-    appId: '1:50462271102:ios:2bfe7dc3c5cbc8bdbe9a2f',
-    messagingSenderId: '50462271102',
-    projectId: 'mdpgold-ace92',
-    databaseURL: 'https://mdpgold-ace92-default-rtdb.firebaseio.com',
-    storageBucket: 'mdpgold-ace92.firebasestorage.app',
+    apiKey: 'AIzaSyDkjRReLDIYSLGyGc2M8pKsVR7RJUbzolU',
+    appId: '1:606666353884:ios:27f10498a724385fcad819',
+    messagingSenderId: '606666353884',
+    projectId: 'mdpgold-b56ea',
+    databaseURL: 'https://mdpgold-b56ea-default-rtdb.firebaseio.com',
+    storageBucket: 'mdpgold-b56ea.firebasestorage.app',
+    iosClientId:
+        '606666353884-0bjtmntlc7golhtk1ucec8nq70l7jhnt.apps.googleusercontent.com',
     iosBundleId: 'com.example.mdpGold',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCsqUb03KnuX1hSkQZfjFSfiQwci_chjWs',
-    appId: '1:50462271102:web:a65d7d9eb2b15ac7be9a2f',
-    messagingSenderId: '50462271102',
-    projectId: 'mdpgold-ace92',
-    authDomain: 'mdpgold-ace92.firebaseapp.com',
-    databaseURL: 'https://mdpgold-ace92-default-rtdb.firebaseio.com',
-    storageBucket: 'mdpgold-ace92.firebasestorage.app',
-    measurementId: 'G-2MFZZWNRQF',
+    apiKey: 'AIzaSyCIE0muClGbzV4Fitsmvo1KjzzY7Gwo7ug',
+    appId: '1:606666353884:web:f92ce44f4d0a67aacad819',
+    messagingSenderId: '606666353884',
+    projectId: 'mdpgold-b56ea',
+    authDomain: 'mdpgold-b56ea.firebaseapp.com',
+    databaseURL: 'https://mdpgold-b56ea-default-rtdb.firebaseio.com',
+    storageBucket: 'mdpgold-b56ea.firebasestorage.app',
+    measurementId: 'G-934SE3P4WR',
   );
 }

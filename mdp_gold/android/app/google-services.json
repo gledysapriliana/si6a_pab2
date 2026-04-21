@@ -13,7 +13,12 @@
           "package_name": "com.example.mdp_gold"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "606666353884-93sjnoa0k6f1sao7omouc8cm2remee3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCFAI1bimdiJe6ESb0qwbUzP0nGl9NzzzA"
@@ -21,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606666353884-93sjnoa0k6f1sao7omouc8cm2remee3u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "606666353884-0bjtmntlc7golhtk1ucec8nq70l7jhnt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mdpGold"
+              }
+            }
+          ]
         }
       }
     }
