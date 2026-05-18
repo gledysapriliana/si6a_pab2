@@ -59,9 +59,9 @@ class _NoteDialogState extends State<NoteDialog> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal memilih gambar: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Gagal memilih gambar: $e')));
       }
     }
   }
@@ -79,6 +79,7 @@ class _NoteDialogState extends State<NoteDialog> {
           title: _titleController.text.trim(),
           description: _descriptionController.text.trim(),
           imageBase64: _imageBase64,
+          createdAt: widget.note?.createdAt ?? DateTime.now(),
         );
 
         if (widget.note == null) {
@@ -103,9 +104,9 @@ class _NoteDialogState extends State<NoteDialog> {
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error: $e')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Error: $e')));
         }
       } finally {
         if (mounted) {
@@ -207,8 +208,11 @@ class _NoteDialogState extends State<NoteDialog> {
                         : const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.add_photo_alternate,
-                                  size: 40, color: Colors.grey),
+                              Icon(
+                                Icons.add_photo_alternate,
+                                size: 40,
+                                color: Colors.grey,
+                              ),
                               SizedBox(height: 8),
                               Text(
                                 'Tap untuk memilih gambar',
