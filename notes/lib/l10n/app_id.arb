@@ -1,0 +1,93 @@
+{
+  "@@locale": "id",
+
+  "appTitle": "Catatan Saya",
+  "subscribeTooltip": "Langganan Topik",
+  "copyFcmToken": "Salin Token FCM",
+  "fcmTokenCopied": "Token FCM disalin ke clipboard",
+
+  "noteAdded": "Note berhasil ditambahkan",
+  "noteAddFailed": "Gagal menambahkan note: {error}",
+  "@noteAddFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "noteUpdated": "Note berhasil diupdate",
+  "noteUpdateFailed": "Gagal mengupdate note: {error}",
+  "@noteUpdateFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "deleteNote": "Hapus Note",
+  "deleteConfirm": "Apakah Anda yakin ingin menghapus \"{title}\"?",
+  "@deleteConfirm": {
+    "placeholders": {
+      "title": { "type": "String" }
+    }
+  },
+  "cancel": "Batal",
+  "delete": "Hapus",
+
+  "noteDeleted": "Note berhasil dihapus",
+  "noteDeleteFailed": "Gagal menghapus note: {error}",
+  "@noteDeleteFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "errorOccurred": "Terjadi kesalahan",
+  "noNotes": "Belum ada catatan",
+  "addNoteHint": "Tekan tombol + untuk menambahkan catatan",
+
+  "addNote": "Tambah Note",
+  "editNote": "Edit Note",
+  "titleLabel": "Judul",
+  "titleEmpty": "Judul tidak boleh kosong",
+  "descriptionLabel": "Deskripsi",
+  "descriptionEmpty": "Deskripsi tidak boleh kosong",
+
+  "pickImageFailed": "Gagal memilih gambar: {error}",
+  "@pickImageFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "tapToAddImage": "Ketuk untuk menambah gambar",
+  "changeImage": "Ganti Gambar",
+  "save": "Simpan",
+  "add": "Tambah",
+
+  "subscribeScreenTitle": "Langganan Topik",
+  "customTopicTitle": "Tambah Topik Kustom",
+  "customTopicHint": "Misal: hiburan, game",
+  "subscribe": "Langganan",
+  "suggestedTopics": "Saran Topik",
+  "otherTopics": "Topik Lainnya",
+  "unsubscribedFromTopic": "Berhenti berlangganan dari topik: {topic}",
+  "@unsubscribedFromTopic": {
+    "placeholders": {
+      "topic": { "type": "String" }
+    }
+  },
+  "subscribedToTopic": "Berhasil berlangganan ke topik: {topic}",
+  "@subscribedToTopic": {
+    "placeholders": {
+      "topic": { "type": "String" }
+    }
+  },
+  "alreadySubscribed": "Sudah berlangganan ke topik: {topic}",
+  "@alreadySubscribed": {
+    "placeholders": {
+      "topic": { "type": "String" }
+    }
+  },
+
+  "language": "Bahasa",
+  "languageEnglish": "Inggris",
+  "languageIndonesian": "Indonesia"
+}

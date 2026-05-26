@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/note.dart';
-import '../services/note_service.dart';
 
 class NoteDialog extends StatefulWidget {
   final Note? note; // null jika mode tambah, berisi data jika mode edit
@@ -17,7 +17,6 @@ class _NoteDialogState extends State<NoteDialog> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  final NoteService _noteService = NoteService();
   final ImagePicker _picker = ImagePicker();
 
   String? _imageBase64;
@@ -59,9 +58,10 @@ class _NoteDialogState extends State<NoteDialog> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Gagal memilih gambar: $e')));
+        final l10n = AppLocalizations.of(context)!;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.pickImageFailed(e.toString()))),
+        );
       }
     }
   }
@@ -82,25 +82,8 @@ class _NoteDialogState extends State<NoteDialog> {
           createdAt: widget.note?.createdAt ?? DateTime.now(),
         );
 
-        if (widget.note == null) {
-          // Mode tambah
-          await _noteService.addNote(note);
-        } else {
-          // Mode edit
-          await _noteService.updateNote(note);
-        }
-
         if (mounted) {
-          Navigator.of(context).pop();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                widget.note == null
-                    ? 'Note berhasil ditambahkan'
-                    : 'Note berhasil diperbarui',
-              ),
-            ),
-          );
+          Navigator.of(context).pop(note);
         }
       } catch (e) {
         if (mounted) {
@@ -120,6 +103,7 @@ class _NoteDialogState extends State<NoteDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isEdit = widget.note != null;
 
     return Dialog(
@@ -135,7 +119,7 @@ class _NoteDialogState extends State<NoteDialog> {
               children: [
                 // Header
                 Text(
-                  isEdit ? 'Edit Note' : 'Add Note',
+                  isEdit ? l10n.editNote : l10n.addNote,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -148,7 +132,7 @@ class _NoteDialogState extends State<NoteDialog> {
                 TextFormField(
                   controller: _titleController,
                   decoration: InputDecoration(
-                    labelText: 'Title',
+                    labelText: l10n.titleLabel,
                     hintText: 'Masukkan judul note',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -157,7 +141,7 @@ class _NoteDialogState extends State<NoteDialog> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Title tidak boleh kosong';
+                      return l10n.titleEmpty;
                     }
                     return null;
                   },
@@ -169,7 +153,7 @@ class _NoteDialogState extends State<NoteDialog> {
                   controller: _descriptionController,
                   maxLines: 3,
                   decoration: InputDecoration(
-                    labelText: 'Description',
+                    labelText: l10n.descriptionLabel,
                     hintText: 'Masukkan deskripsi note',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -179,7 +163,7 @@ class _NoteDialogState extends State<NoteDialog> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Description tidak boleh kosong';
+                      return l10n.descriptionEmpty;
                     }
                     return null;
                   },
@@ -205,18 +189,18 @@ class _NoteDialogState extends State<NoteDialog> {
                               width: double.infinity,
                             ),
                           )
-                        : const Column(
+                        : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.add_photo_alternate,
                                 size: 40,
                                 color: Colors.grey,
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
-                                'Tap untuk memilih gambar',
-                                style: TextStyle(color: Colors.grey),
+                                l10n.tapToAddImage,
+                                style: const TextStyle(color: Colors.grey),
                               ),
                             ],
                           ),
@@ -233,9 +217,9 @@ class _NoteDialogState extends State<NoteDialog> {
                       });
                     },
                     icon: const Icon(Icons.delete, color: Colors.red),
-                    label: const Text(
-                      'Hapus Gambar',
-                      style: TextStyle(color: Colors.red),
+                    label: Text(
+                      l10n.changeImage,
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
                 ],
@@ -254,7 +238,7 @@ class _NoteDialogState extends State<NoteDialog> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: const Text('Batal'),
+                        child: Text(l10n.cancel),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -275,7 +259,7 @@ class _NoteDialogState extends State<NoteDialog> {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : Text(isEdit ? 'Update' : 'Simpan'),
+                            : Text(isEdit ? l10n.save : l10n.add),
                       ),
                     ),
                   ],

@@ -13,8 +13,16 @@ class FcmService {
   final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static const String _baseUrl = 'https://notes-rest-api-sev3.vercel.app';
-  static const String _topicName = 'notes';
+  static const String _baseUrl = 'https://notes-rest-api.vercel.app';
+  static const String _topicName = 'notes'; // default topic
+
+  static const AndroidNotificationChannel _androidChannel =
+      AndroidNotificationChannel(
+        'high_importance_channel',
+        'High Importance Notifications',
+        description: 'This channel is used for important notifications.',
+        importance: Importance.max,
+      );
 
   /// Initialize FCM and Local Notifications
   Future<void> initialize() async {
@@ -57,7 +65,7 @@ class FcmService {
         // Use dynamic to bypass strict compile-time checks on Web
         final dynamic localNotifications = _localNotificationsPlugin;
 
-        await localNotifications.initialize(
+        await _localNotificationsPlugin.initialize(
           settings: initializationSettings,
           onDidReceiveNotificationResponse: (details) {
             debugPrint('Notification clicked: ${details.payload}');
@@ -65,18 +73,11 @@ class FcmService {
         );
 
         // 3. Create Android Notification Channel
-        const AndroidNotificationChannel channel = AndroidNotificationChannel(
-          'high_importance_channel',
-          'High Importance Notifications',
-          description: 'This channel is used for important notifications.',
-          importance: Importance.max,
-        );
-
         await localNotifications
             .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin
             >()
-            ?.createNotificationChannel(channel);
+            ?.createNotificationChannel(_androidChannel);
 
         // 4. Handle Foreground Messages
         FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -96,9 +97,9 @@ class FcmService {
               body: notification.body,
               notificationDetails: NotificationDetails(
                 android: AndroidNotificationDetails(
-                  channel.id,
-                  channel.name,
-                  channelDescription: channel.description,
+                  _androidChannel.id,
+                  _androidChannel.name,
+                  channelDescription: _androidChannel.description,
                   icon: '@mipmap/ic_launcher', // Use fixed icon for reliability
                   importance: Importance.max,
                   priority: Priority.high,
@@ -117,15 +118,27 @@ class FcmService {
               body: body,
               notificationDetails: NotificationDetails(
                 android: AndroidNotificationDetails(
-                  channel.id,
-                  channel.name,
-                  channelDescription: channel.description,
+                  _androidChannel.id,
+                  _androidChannel.name,
+                  channelDescription: _androidChannel.description,
                   icon: '@mipmap/ic_launcher',
                   importance: Importance.max,
                   priority: Priority.high,
                 ),
               ),
               payload: jsonEncode(message.data),
+            );
+          }
+        });
+
+        FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+          debugPrint('Notification opened: ${message.data}');
+        });
+
+        FirebaseMessaging.instance.getInitialMessage().then((message) {
+          if (message != null) {
+            debugPrint(
+              'App opened from terminated notification: ${message.data}',
             );
           }
         });
@@ -173,6 +186,35 @@ class FcmService {
     }
   }
 
+  /// Show a local notification immediately on the device.
+  Future<void> showLocalNotification({
+    required String title,
+    required String body,
+    Map<String, dynamic>? payload,
+  }) async {
+    try {
+      await _localNotificationsPlugin.show(
+        id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+        title: title,
+        body: body,
+        notificationDetails: NotificationDetails(
+          android: AndroidNotificationDetails(
+            _androidChannel.id,
+            _androidChannel.name,
+            channelDescription: _androidChannel.description,
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: '@mipmap/ic_launcher',
+          ),
+          iOS: const DarwinNotificationDetails(),
+        ),
+        payload: payload != null ? jsonEncode(payload) : null,
+      );
+    } catch (e) {
+      debugPrint('Error showing local notification: $e');
+    }
+  }
+
   /// Send notification via REST API when a note is added
   Future<void> sendNoteNotification({
     required String title,
@@ -183,31 +225,68 @@ class FcmService {
       final formattedDate =
           "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
 
+      final requestBody = jsonEncode({
+        'topic': _topicName,
+        'priority': 'high',
+        'title': 'Catatan Baru: $title',
+        'body': description,
+        'notification': {'title': 'Catatan Baru: $title', 'body': description},
+        'android': {
+          'notification': {'channel_id': _androidChannel.id},
+        },
+        'data': {
+          'senderName': 'User Notes',
+          'senderPhoto':
+              'https://firebase.google.com/static/images/brand-guidelines/logo-vertical.png',
+          'created_at': formattedDate,
+          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+          'type': 'new_note',
+        },
+      });
+
       final response = await http.post(
         Uri.parse('$_baseUrl/send-to-topic'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'topic': _topicName,
-          'title': 'Catatan Baru: $title',
-          'body': description,
-          'data': {
-            'senderName': 'User Notes',
-            'senderPhoto':
-                'https://firebase.google.com/static/images/brand-guidelines/logo-vertical.png',
-            'created_at': formattedDate,
-            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-            'type': 'new_note',
-          },
-        }),
+        body: requestBody,
       );
 
       if (response.statusCode == 200) {
         debugPrint('Notification sent successfully');
       } else {
-        debugPrint('Failed to send notification: ${response.body}');
+        debugPrint(
+          'Failed to send notification: ${response.statusCode} ${response.body}',
+        );
       }
     } catch (e) {
       debugPrint('Error sending notification: $e');
+    }
+  }
+
+  /// Subscribe to a specific topic
+  Future<void> subscribeToTopic(String topic) async {
+    if (kIsWeb) {
+      debugPrint('Topic subscription is not supported on Web.');
+      return;
+    }
+    try {
+      await _messaging.subscribeToTopic(topic);
+      debugPrint('Successfully subscribed to topic: $topic');
+    } catch (e) {
+      debugPrint('Error subscribing to topic $topic: $e');
+    }
+  }
+
+  /// Unsubscribe from a specific topic
+  Future<void> unsubscribeFromTopic(String topic) async {
+    if (kIsWeb) {
+      debugPrint('Topic unsubscription is not supported on Web.');
+      return;
+    }
+    try {
+      await _messaging.unsubscribeFromTopic(topic);
+      debugPrint('Successfully unsubscribed from topic: $topic');
+    } catch (e) {
+      debugPrint('Error unsubscribing from topic $topic: $e');
     }
   }
 }

@@ -1,0 +1,93 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "My Notes",
+  "subscribeTooltip": "Subscribe to Topic",
+  "copyFcmToken": "Copy FCM Token",
+  "fcmTokenCopied": "FCM Token copied to clipboard",
+
+  "noteAdded": "Note added successfully",
+  "noteAddFailed": "Failed to add note: {error}",
+  "@noteAddFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "noteUpdated": "Note updated successfully",
+  "noteUpdateFailed": "Failed to update note: {error}",
+  "@noteUpdateFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "deleteNote": "Delete Note",
+  "deleteConfirm": "Are you sure you want to delete \"{title}\"?",
+  "@deleteConfirm": {
+    "placeholders": {
+      "title": { "type": "String" }
+    }
+  },
+  "cancel": "Cancel",
+  "delete": "Delete",
+
+  "noteDeleted": "Note deleted successfully",
+  "noteDeleteFailed": "Failed to delete note: {error}",
+  "@noteDeleteFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "errorOccurred": "An error occurred",
+  "noNotes": "No notes yet",
+  "addNoteHint": "Press + to add a note",
+
+  "addNote": "Add Note",
+  "editNote": "Edit Note",
+  "titleLabel": "Title",
+  "titleEmpty": "Title cannot be empty",
+  "descriptionLabel": "Description",
+  "descriptionEmpty": "Description cannot be empty",
+
+  "pickImageFailed": "Failed to pick image: {error}",
+  "@pickImageFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "tapToAddImage": "Tap to add image",
+  "changeImage": "Change Image",
+  "save": "Save",
+  "add": "Add",
+
+  "subscribeScreenTitle": "Subscribe to Topic",
+  "customTopicTitle": "Add Custom Topic",
+  "customTopicHint": "e.g: entertainment, game",
+  "subscribe": "Subscribe",
+  "suggestedTopics": "Suggested Topics",
+  "otherTopics": "Other Topics",
+  "unsubscribedFromTopic": "Unsubscribed from topic: {topic}",
+  "@unsubscribedFromTopic": {
+    "placeholders": {
+      "topic": { "type": "String" }
+    }
+  },
+  "subscribedToTopic": "Subscribed to topic: {topic}",
+  "@subscribedToTopic": {
+    "placeholders": {
+      "topic": { "type": "String" }
+    }
+  },
+  "alreadySubscribed": "Already subscribed to topic: {topic}",
+  "@alreadySubscribed": {
+    "placeholders": {
+      "topic": { "type": "String" }
+    }
+  },
+
+  "language": "Language",
+  "languageEnglish": "English",
+  "languageIndonesian": "Indonesian"
+}
